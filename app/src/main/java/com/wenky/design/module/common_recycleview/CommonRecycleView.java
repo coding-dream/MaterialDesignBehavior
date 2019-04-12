@@ -1,4 +1,4 @@
-package com.wenky.design;
+package com.wenky.design.module.common_recycleview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.wenky.design.R;
 
 import java.util.ArrayList;
 import java.util.List;

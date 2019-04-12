@@ -25,6 +25,20 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:text="MyCoordinatorLayoutActivity"
+        android:id="@+id/btn_myCoordinatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="DoubleBehaviorPreScrollActivity"
+        android:id="@+id/btn_doubleBehaviorPreScrollActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="FlingBehaviorActivity"
+        android:id="@+id/btn_flingBehaviorActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

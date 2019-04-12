@@ -16,9 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppBarLayoutActivity" />
-        <activity android:name=".CollapsingToolbarLayoutActivity" />
-        <activity android:name=".RecycleViewActivity" />
+        <activity android:name=".module.appbar.AppBarLayoutActivity" />
+        <activity android:name=".module.collapsing.CollapsingToolbarLayoutActivity" />
+        <activity android:name=".module.common_recycleview.RecycleViewActivity" />
+        <activity android:name=".module.think_appbar_source.MyCoordinatorLayoutActivity" />
+        <activity android:name=".module.double_behavior.DoubleBehaviorPreScrollActivity" />
+        <activity android:name=".module.fling.FlingBehaviorActivity" />
     </application>
 
 </manifest>

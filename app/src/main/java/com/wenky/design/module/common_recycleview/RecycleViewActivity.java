@@ -1,5 +1,6 @@
-package com.wenky.design;
+package com.wenky.design.module.common_recycleview;
 
+import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
 
 public class RecycleViewActivity extends BaseActivity {

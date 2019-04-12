@@ -1,4 +1,4 @@
-package com.wenky.design.behavior;
+package com.wenky.design.module.think_appbar_source;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;

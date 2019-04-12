@@ -1,6 +1,8 @@
-package com.wenky.design;
+package com.wenky.design.module.appbar;
 
 import android.support.design.widget.AppBarLayout;
+
+import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
 
 import org.jetbrains.anko.ToastsKt;
