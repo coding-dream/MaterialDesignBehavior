@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AppBarLayoutActivity" />
+        <activity android:name=".CollapsingToolbarLayoutActivity" />
+        <activity android:name=".RecycleViewActivity" />
     </application>
 
 </manifest>

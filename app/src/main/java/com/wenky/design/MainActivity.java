@@ -1,13 +1,36 @@
 package com.wenky.design;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
+import com.wenky.design.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void initView() {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @OnClick({R.id.btn_appbar, R.id.btn_simple_behavior, R.id.btn_recycleView})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_appbar:
+                startActivity(AppBarLayoutActivity.class);
+                break;
+            case R.id.btn_simple_behavior:
+                startActivity(CollapsingToolbarLayoutActivity.class);
+                break;
+            case R.id.btn_recycleView:
+                startActivity(RecycleViewActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 }
