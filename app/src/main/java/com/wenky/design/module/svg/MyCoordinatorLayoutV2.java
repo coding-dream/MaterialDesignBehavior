@@ -118,6 +118,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
         // 因为RecycleView是后面添加的，必须放在此处
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setOnTouchListener(new OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return isRefreshing;
@@ -153,7 +154,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
             public void run() {
                 setRefresh(false);
             }
-        }, 5000);
+        }, 2000);
     }
 
     public void setRefresh(boolean showRefresh){
@@ -161,13 +162,11 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
             refreshLoadingView.setCanRotate(true);
             refreshLoadingView.postInvalidate();
             playLoadingView();
-            contentRefreshBehavior.setEnable(false);
         } else {
             refreshLoadingView.setCanRotate(false);
             refreshLoadingView.postInvalidate();
             stopLoadingView();
             contentRefreshBehavior.hideRefreshView();
-            contentRefreshBehavior.setEnable(true);
         }
         isRefreshing = showRefresh;
     }

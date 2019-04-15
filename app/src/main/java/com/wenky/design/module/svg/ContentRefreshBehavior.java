@@ -2,8 +2,10 @@ package com.wenky.design.module.svg;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.OverScroller;
@@ -22,18 +24,14 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
 
     private CollapsingLayoutStateCallback collapsingLayoutStateCallback;
 
-    private boolean enable = true;
     private boolean isAutoScrolling;
     private boolean isHeaderFling = false;
+    private boolean fingerMoveUp;
 
     public interface CollapsingLayoutStateCallback {
         void expanded();
         void collapsed();
         void internediate();
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
     }
 
     public void setCollapsingLayoutStateCallback(CollapsingLayoutStateCallback callback) {
@@ -52,7 +50,7 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         if (started && !mOverScroller.isFinished()) {
             mOverScroller.abortAnimation();
         }
-        return started && enable;
+        return started;
     }
 
     @Override
@@ -75,7 +73,9 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
-        if(dy < 0 || !enable ){
+        this.fingerMoveUp = dy > 0;
+
+        if(dy < 0){
             return;
         }
         LogHelper.d("=============> onNestedPreScroll: " + dy);
@@ -100,7 +100,8 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
-        if(dyUnconsumed > 0 || !enable){
+        LogHelper.d("onNestedScroll dyUnconsumed: " + dyUnconsumed);
+        if(dyUnconsumed > 0){
             return;
         }
         LogHelper.d("=============> onNestedScroll: " + dyUnconsumed);
@@ -120,14 +121,12 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public void onStopNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int type) {
         LogHelper.d("onStopNestedScroll");
-        if (enable) {
-            // 此处判断是否到达刷新边界
-            if (getDependencyView().getTranslationY() == 0 && collapsingLayoutStateCallback != null) {
-                collapsingLayoutStateCallback.expanded();
-            } else {
-                if (!isAutoScrolling) {
-                    hideRefreshView();
-                }
+        // 此处判断是否到达刷新边界
+        if (getDependencyView().getTranslationY() == 0 && collapsingLayoutStateCallback != null) {
+            collapsingLayoutStateCallback.expanded();
+        } else {
+            if (!isAutoScrolling) {
+                hideRefreshView();
             }
         }
     }
