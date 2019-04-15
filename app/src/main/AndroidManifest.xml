@@ -22,6 +22,8 @@
         <activity android:name=".module.think_appbar_source.MyCoordinatorLayoutActivity" />
         <activity android:name=".module.double_behavior.DoubleBehaviorPreScrollActivity" />
         <activity android:name=".module.fling.FlingBehaviorActivity" />
+        <activity android:name=".module.svg.SvgRefreshActivityV2" />
+        <activity android:name=".module.svg.SvgRefreshActivityV1" />
     </application>
 
 </manifest>

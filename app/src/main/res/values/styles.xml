@@ -26,4 +26,8 @@
         <item name="android:gravity">start|center_vertical</item>
     </style>
 
+    <declare-styleable name="FaceLoadingView">
+        <attr name="loading_image" format="reference"/>
+    </declare-styleable>
+
 </resources>

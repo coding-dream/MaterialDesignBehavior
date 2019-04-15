@@ -43,6 +43,14 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:text="SvgRefreshActivityV1"
+        android:id="@+id/btn_svgRefreshActivityV1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="SvgRefreshActivityV2"
+        android:id="@+id/btn_svgRefreshActivityV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

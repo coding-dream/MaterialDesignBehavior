@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wenky.design.module.svg.MyCoordinatorLayoutV2
+        android:id="@+id/myCoordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            app:layout_behavior="com.wenky.design.module.svg.ContentRefreshBehavior"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v4.widget.NestedScrollView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/long_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.wenky.design.module.svg.MyCoordinatorLayoutV2>
+
+</LinearLayout>

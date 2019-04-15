@@ -1,0 +1,32 @@
+<LinearLayout
+    app:layout_behavior="com.wenky.design.module.svg.HeaderRefreshBehavior"
+    android:id="@+id/layout_header"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.wenky.design.module.svg.RefreshLoadingView
+        android:id="@+id/refreshLoadingView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Header"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.opensource.svgaplayer.SVGAImageView
+        android:id="@+id/svg_loading_refresh"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:clearsAfterStop="false"
+        app:fillMode="Forward"
+        android:background="@color/black"
+        />
+</LinearLayout>
