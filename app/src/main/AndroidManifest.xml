@@ -24,6 +24,7 @@
         <activity android:name=".module.fling.FlingBehaviorActivity" />
         <activity android:name=".module.svg.SvgRefreshActivityV2" />
         <activity android:name=".module.svg.SvgRefreshActivityV1" />
+        <activity android:name=".module.test.TestActivity" />
     </application>
 
 </manifest>

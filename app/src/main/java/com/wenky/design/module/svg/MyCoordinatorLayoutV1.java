@@ -186,7 +186,7 @@ public class MyCoordinatorLayoutV1 extends CoordinatorLayout {
             }
         });
 
-        svgaParser.parse("refresh_loading.svga", new SVGAParser.ParseCompletion() {
+        svgaParser.parse("loading.svga", new SVGAParser.ParseCompletion() {
             @Override
             public void onComplete(@NotNull SVGAVideoEntity svgaVideoEntity) {
                 svgaImageView.setVisibility(View.VISIBLE);

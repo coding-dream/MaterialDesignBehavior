@@ -1,4 +1,4 @@
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     app:layout_behavior="com.wenky.design.module.svg.HeaderRefreshBehavior"
     android:id="@+id/layout_header"
     android:orientation="vertical"
@@ -7,18 +7,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.wenky.design.module.svg.RefreshLoadingView
-        android:id="@+id/refreshLoadingView"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/layout_header_bg"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
 
-    <TextView
-        android:text="Header"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+    </LinearLayout>
 
     <com.opensource.svgaplayer.SVGAImageView
         android:id="@+id/svg_loading_refresh"
@@ -27,6 +27,24 @@
         android:layout_height="100dp"
         app:clearsAfterStop="false"
         app:fillMode="Forward"
-        android:background="@color/black"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
-</LinearLayout>
+
+    <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:id="@+id/iv_refresh"
+        android:src="@mipmap/ic_refresh"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        />
+
+</android.support.constraint.ConstraintLayout>

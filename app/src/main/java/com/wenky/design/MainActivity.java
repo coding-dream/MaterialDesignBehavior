@@ -9,6 +9,7 @@ import com.wenky.design.module.double_behavior.DoubleBehaviorPreScrollActivity;
 import com.wenky.design.module.fling.FlingBehaviorActivity;
 import com.wenky.design.module.svg.SvgRefreshActivityV1;
 import com.wenky.design.module.svg.SvgRefreshActivityV2;
+import com.wenky.design.module.test.TestActivity;
 import com.wenky.design.module.think_appbar_source.MyCoordinatorLayoutActivity;
 
 import butterknife.OnClick;
@@ -26,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @OnClick({
+            R.id.btn_test,
             R.id.btn_appbar,
             R.id.btn_simple_behavior,
             R.id.btn_recycleView,
@@ -37,6 +39,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     })
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_test:
+                startActivity(TestActivity.class);
             case R.id.btn_appbar:
                 startActivity(AppBarLayoutActivity.class);
                 break;

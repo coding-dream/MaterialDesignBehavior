@@ -1,11 +1,10 @@
 package com.wenky.design.module.svg;
 
+import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.OverScroller;
@@ -20,13 +19,17 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     private OverScroller mOverScroller;
     private WeakReference<View> mDependencyView;
     private int mHeaderHeight;
-    private boolean isExpand;
+    private CollapsingToolbarLayoutState state;
+
+    private ArgbEvaluator mArgbEvaluator;
+
+    private enum CollapsingToolbarLayoutState {
+        EXPANDED,
+        COLLAPSED,
+        INTERNEDIATE
+    }
 
     private CollapsingLayoutStateCallback collapsingLayoutStateCallback;
-
-    private boolean isAutoScrolling;
-    private boolean isHeaderFling = false;
-    private boolean fingerMoveUp;
 
     public interface CollapsingLayoutStateCallback {
         void expanded();
@@ -41,6 +44,7 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     public ContentRefreshBehavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         mOverScroller = new OverScroller(context);
+        mArgbEvaluator = new ArgbEvaluator();
     }
 
     @Override
@@ -65,16 +69,22 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         // 初始进入页面会调用一次（还未滑动）
         child.setTranslationY(dependency.getHeight() + dependency.getTranslationY());
 
-        float progress = Math.abs(dependency.getTranslationY() / (dependency.getHeight() - getHeaderHeight(parent)));
-        LogHelper.d("progress: " + progress);
+        float degree = Math.abs(dependency.getTranslationY() / (float) dependency.getHeight());
+        dependency.findViewById(R.id.iv_refresh).setRotation(180 * (1 - degree));
+
+        int startColor = dependency.getContext().getResources().getColor(R.color.white);
+        int endColor = dependency.getContext().getResources().getColor(R.color.Orange);
+
+        dependency.findViewById(R.id.layout_header_bg).setBackgroundColor((Integer) mArgbEvaluator.evaluate(degree, startColor, endColor));
         return true;
     }
 
     @Override
     public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
-        this.fingerMoveUp = dy > 0;
-
+        if (type != ViewCompat.TYPE_TOUCH) {
+            return;
+        }
         if(dy < 0){
             return;
         }
@@ -83,7 +93,7 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         // onNestedPreScroll:::newTranslationY:-24.0 ---> minHeaderTranslation -413.0
         View dependentView = getDependencyView();
         float maxHeaderTranslate = -dependentView.getHeight();
-        float newTranslationY = dependentView.getTranslationY() - dy;
+        float newTranslationY = dependentView.getTranslationY() - dy / 2f;
 
         LogHelper.d("onNestedPreScroll:::newTranslationY:" + newTranslationY + "---> maxHeaderTranslate " + maxHeaderTranslate);
         if (newTranslationY >= maxHeaderTranslate) {
@@ -101,12 +111,15 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
     public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
         LogHelper.d("onNestedScroll dyUnconsumed: " + dyUnconsumed);
+        if (type != ViewCompat.TYPE_TOUCH) {
+            return;
+        }
         if(dyUnconsumed > 0){
             return;
         }
         LogHelper.d("=============> onNestedScroll: " + dyUnconsumed);
         View dependentView = getDependencyView();
-        float newTranslateY = dependentView.getTranslationY() - dyUnconsumed;
+        float newTranslateY = dependentView.getTranslationY() - dyUnconsumed / 2f;
         float maxHeaderTranslate = 0;
         LogHelper.d("onNestedScroll:::newTranslateY:" + newTranslateY + "---> maxHeaderTranslate " + maxHeaderTranslate);
         if (newTranslateY <= maxHeaderTranslate) {
@@ -118,20 +131,35 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         }
     }
 
+
     @Override
     public void onStopNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, int type) {
-        LogHelper.d("onStopNestedScroll");
+        LogHelper.d("onStopNestedScroll: " + type);
         // 此处判断是否到达刷新边界
-        if (getDependencyView().getTranslationY() == 0 && collapsingLayoutStateCallback != null) {
-            collapsingLayoutStateCallback.expanded();
-        } else {
-            if (!isAutoScrolling) {
-                hideRefreshView();
+        if (type == ViewCompat.TYPE_TOUCH) {
+            if (getDependencyView().getTranslationY() >= 0) {
+                if (state != CollapsingToolbarLayoutState.EXPANDED) {
+                    state = CollapsingToolbarLayoutState.EXPANDED;
+                    if (collapsingLayoutStateCallback != null) {
+                        collapsingLayoutStateCallback.expanded();
+                    }
+                }
+            } else if(getDependencyView().getTranslationY() < 0){
+                if (mOverScroller.isFinished()) {
+                    hideRefreshView();
+                }
             }
         }
     }
 
-    @Override
+    /**
+     * 嵌套滑动子View fling(滑行)前的准备工作
+     *
+     * @param target    实现嵌套滑动的子View
+     * @param velocityX 水平方向上的速度
+     * @param velocityY 竖直方向上的速度
+     * @return true 父View(Behavior)是否消耗了fling
+     */
     public boolean onNestedPreFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, float velocityX, float velocityY) {
         LogHelper.d("onNestedPreFling");
         View dependentView = getDependencyView();
@@ -146,6 +174,20 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         return true;
     }
 
+    /**
+     * 嵌套滑动子View的fling(滑行)情况
+     *
+     * @param target    实现嵌套滑动的子View
+     * @param velocityX 水平方向上的速度
+     * @param velocityY 竖直方向上的速度
+     * @param consumed  子View是否消耗fling( consumed true if the nested child view consumed the fling)
+     * @return true (return true if the Behavior consumed the fling)
+     */
+    @Override
+    public boolean onNestedFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View child, @NonNull View target, float velocityX, float velocityY, boolean consumed) {
+        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+    }
+
     private Runnable flingRunnable = new Runnable() {
         @Override
         public void run() {
@@ -155,8 +197,12 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
                 getDependencyView().setTranslationY(mOverScroller.getCurrY());
                 getDependencyView().post(this);
             } else {
-                isExpand = getDependencyView().getTranslationX() != 0;
-                isAutoScrolling = false;
+                if (state != CollapsingToolbarLayoutState.COLLAPSED) {
+                    state = CollapsingToolbarLayoutState.COLLAPSED;
+                    if (collapsingLayoutStateCallback != null) {
+                        collapsingLayoutStateCallback.collapsed();
+                    }
+                }
             }
         }
     };
@@ -211,7 +257,6 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         mOverScroller.startScroll(0, (int) originTranslateY, 0, dy, 800);
         // 因为Behavior里面没有View中的computeScroll方法，因此只能这样递归调用。
         getDependencyView().post(flingRunnable);
-        isAutoScrolling = true;
         return true;
     }
 }

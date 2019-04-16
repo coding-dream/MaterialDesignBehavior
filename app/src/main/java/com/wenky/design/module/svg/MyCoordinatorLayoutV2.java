@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.opensource.svgaplayer.SVGACallback;
 import com.opensource.svgaplayer.SVGAImageView;
 import com.opensource.svgaplayer.SVGAParser;
 import com.opensource.svgaplayer.SVGAVideoEntity;
 import com.wenky.design.R;
+import com.wenky.design.util.LogHelper;
 
 import org.jetbrains.anko.ToastsKt;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +29,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
     private int maxScrollLength = 0;
 
     private SVGAImageView svgaImageView;
-    private RefreshLoadingView refreshLoadingView;
+    private ImageView ivRefresh;
     private RecyclerView recyclerView;
 
     private CollapsingToolbarLayoutState state;
@@ -60,7 +62,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
 
     private void initView() {
         inflate(mContext, R.layout.layout_refresh_v2, this);
-        refreshLoadingView = findViewById(R.id.refreshLoadingView);
+        ivRefresh = findViewById(R.id.iv_refresh);
         svgaImageView = findViewById(R.id.svg_loading_refresh);
     }
 
@@ -82,7 +84,6 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
             @Override
             public void onFinished() {
                 // 动画播放完成
-                ToastsKt.toast(mContext, "animator finished");
             }
 
             @Override
@@ -96,7 +97,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
             }
         });
 
-        svgaParser.parse("refresh_loading.svga", new SVGAParser.ParseCompletion() {
+        svgaParser.parse("loading.svga", new SVGAParser.ParseCompletion() {
             @Override
             public void onComplete(@NotNull SVGAVideoEntity svgaVideoEntity) {
                 svgaImageView.setVisibility(View.VISIBLE);
@@ -149,26 +150,29 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout {
      */
     private void requestData() {
         setRefresh(true);
-        refreshLoadingView.postDelayed(new Runnable() {
+        ivRefresh.postDelayed(new Runnable() {
             @Override
             public void run() {
                 setRefresh(false);
             }
-        }, 2000);
+        }, 4000);
     }
 
     public void setRefresh(boolean showRefresh){
         if (showRefresh) {
-            refreshLoadingView.setCanRotate(true);
-            refreshLoadingView.postInvalidate();
+            ivRefresh.setVisibility(View.INVISIBLE);
+            svgaImageView.setVisibility(View.VISIBLE);
             playLoadingView();
+            ToastsKt.toast(mContext, "开始刷新");
         } else {
-            refreshLoadingView.setCanRotate(false);
-            refreshLoadingView.postInvalidate();
+            ivRefresh.setVisibility(View.VISIBLE);
+            svgaImageView.setVisibility(View.INVISIBLE);
             stopLoadingView();
             contentRefreshBehavior.hideRefreshView();
+            ToastsKt.toast(mContext, "刷新成功");
         }
         isRefreshing = showRefresh;
+        LogHelper.d("setRefresh: " + showRefresh);
     }
 
     private void stopLoadingView() {

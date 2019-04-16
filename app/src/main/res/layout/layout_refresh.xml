@@ -20,7 +20,6 @@
             android:layout_height="100dp"
             app:clearsAfterStop="false"
             app:fillMode="Forward"
-            android:background="@color/black"
             />
 
         <ImageView
