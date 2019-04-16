@@ -137,7 +137,7 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         LogHelper.d("onStopNestedScroll: " + type);
         // 此处判断是否到达刷新边界
         if (type == ViewCompat.TYPE_TOUCH) {
-            if (getDependencyView().getTranslationY() >= 0) {
+            if (getDependencyView().getTranslationY() >= -20) {
                 if (state != CollapsingToolbarLayoutState.EXPANDED) {
                     state = CollapsingToolbarLayoutState.EXPANDED;
                     if (collapsingLayoutStateCallback != null) {

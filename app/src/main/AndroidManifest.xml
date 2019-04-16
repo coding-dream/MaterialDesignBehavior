@@ -25,6 +25,9 @@
         <activity android:name=".module.svg.SvgRefreshActivityV2" />
         <activity android:name=".module.svg.SvgRefreshActivityV1" />
         <activity android:name=".module.test.TestActivity" />
+        <activity android:name=".module.bottom_sheet_dialog.BottomSheetBehaviorActivity" />
+        <activity android:name=".module.j_shu.JShuAppBarLayoutActivity" />
+        <activity android:name=".module.viewpager.ViewPagerActivity" />
     </application>
 
 </manifest>

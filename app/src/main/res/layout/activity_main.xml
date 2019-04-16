@@ -1,63 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:text="TestActivity"
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:text="AppBarLayoutActivity"
-        android:id="@+id/btn_appbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="TestActivity"
+            android:id="@+id/btn_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="CollapsingToolbarLayoutActivity"
-        android:id="@+id/btn_simple_behavior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="AppBarLayoutActivity"
+            android:id="@+id/btn_appbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="RecycleViewActivity"
-        android:id="@+id/btn_recycleView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="CollapsingToolbarLayoutActivity"
+            android:id="@+id/btn_simple_behavior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="MyCoordinatorLayoutActivity"
-        android:id="@+id/btn_myCoordinatorLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="RecycleViewActivity"
+            android:id="@+id/btn_recycleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="DoubleBehaviorPreScrollActivity"
-        android:id="@+id/btn_doubleBehaviorPreScrollActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="MyCoordinatorLayoutActivity"
+            android:id="@+id/btn_myCoordinatorLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="FlingBehaviorActivity"
-        android:id="@+id/btn_flingBehaviorActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="DoubleBehaviorPreScrollActivity"
+            android:id="@+id/btn_doubleBehaviorPreScrollActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="SvgRefreshActivityV1"
-        android:id="@+id/btn_svgRefreshActivityV1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="FlingBehaviorActivity"
+            android:id="@+id/btn_flingBehaviorActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="SvgRefreshActivityV2"
-        android:id="@+id/btn_svgRefreshActivityV2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="SvgRefreshActivityV1"
+            android:id="@+id/btn_svgRefreshActivityV1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <Button
+            android:text="SvgRefreshActivityV2"
+            android:id="@+id/btn_svgRefreshActivityV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="BottomSheetBehaviorActivity"
+            android:id="@+id/BottomSheetBehaviorActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="JShuAppBarLayoutActivity"
+            android:id="@+id/JShuAppBarLayoutActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="ViewPagerActivity"
+            android:id="@+id/ViewPagerActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>
