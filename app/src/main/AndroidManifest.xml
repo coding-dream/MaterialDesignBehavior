@@ -28,6 +28,7 @@
         <activity android:name=".module.bottom_sheet_dialog.BottomSheetBehaviorActivity" />
         <activity android:name=".module.j_shu.JShuAppBarLayoutActivity" />
         <activity android:name=".module.viewpager.ViewPagerActivity" />
+        <activity android:name=".module.appbar_translate_scale.AppBarTranslateScaleActivity" />
     </application>
 
 </manifest>

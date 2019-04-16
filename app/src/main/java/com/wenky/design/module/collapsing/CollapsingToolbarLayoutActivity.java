@@ -32,7 +32,7 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
     public void initView() {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.TRANSPARENT);
-        toolbar.inflateMenu(R.menu.menu_search);
+        // toolbar.inflateMenu(R.menu.menu_search);
         AppBarLayout appBarLayout = findViewById(R.id.appbar_layout);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapse_layout);

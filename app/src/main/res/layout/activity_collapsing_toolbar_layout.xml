@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             app:contentScrim="#ff4444"
             app:statusBarScrim="#feaa33"
-            app:layout_scrollFlags="scroll">
+            android:minHeight="100dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -32,15 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:clipChildren="false"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
-                app:layout_collapseMode="parallax">
+                app:layout_collapseMode="pin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:fitsSystemWindows="true"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -49,7 +48,6 @@
                         android:layout_height="100dp"
                         android:animateLayoutChanges="true"
                         android:background="#77333333"
-                        android:fitsSystemWindows="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -57,7 +55,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="我是视察的View，哦，背景也是，可以设置比例哦~"
+                            android:text="我是固定不动被顶着走的view"
                             android:textColor="#fff" />
 
                     </LinearLayout>
@@ -69,11 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 android:orientation="vertical"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="parallax">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -81,7 +77,7 @@
                     android:layout_gravity="center"
                     android:background="#77333333"
                     android:gravity="center"
-                    android:text="我是固定不动被顶着走的view"
+                    android:text="我是视察的View，哦，背景也是，可以设置比例哦~"
                     android:textColor="#000" />
 
             </LinearLayout>

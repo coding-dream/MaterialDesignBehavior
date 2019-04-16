@@ -3,6 +3,7 @@ package com.wenky.design;
 import android.view.View;
 import com.wenky.design.base.BaseActivity;
 import com.wenky.design.module.appbar.AppBarLayoutActivity;
+import com.wenky.design.module.appbar_translate_scale.AppBarTranslateScaleActivity;
 import com.wenky.design.module.bottom_sheet_dialog.BottomSheetBehaviorActivity;
 import com.wenky.design.module.collapsing.CollapsingToolbarLayoutActivity;
 import com.wenky.design.module.common_recycleview.RecycleViewActivity;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.BottomSheetBehaviorActivity,
             R.id.JShuAppBarLayoutActivity,
             R.id.ViewPagerActivity,
+            R.id.AppBarTranslateScaleActivity,
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -79,6 +81,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.ViewPagerActivity:
                 startActivity(ViewPagerActivity.class);
+                break;
+            case R.id.AppBarTranslateScaleActivity:
+                startActivity(AppBarTranslateScaleActivity.class);
                 break;
             default:
                 break;

@@ -30,25 +30,25 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support.constraint:constraint-layout:1.1.3"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:palette-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21"
-
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21'
     // svg
     implementation(name: 'svga-2.3.0', ext: 'aar')
     implementation 'com.squareup.wire:wire-runtime:2.3.0-RC1'
-
     // ButterKnife
-    implementation "com.jakewharton:butterknife:8.8.1"
+    implementation 'com.jakewharton:butterknife:8.8.1'
     kapt "com.jakewharton:butterknife-compiler:8.8.1"
+    implementation 'org.jetbrains.anko:anko-commons:0.10.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
+    implementation "com.android.support:cardview-v7:$support_version"
 
-    implementation "org.jetbrains.anko:anko-commons:0.10.0"
+    implementation 'com.mikhaellopez:circularimageview:3.0.2'
 
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42"
+
 }

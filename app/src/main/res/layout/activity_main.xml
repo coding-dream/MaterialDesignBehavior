@@ -81,6 +81,11 @@
             android:id="@+id/ViewPagerActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:text="AppBarTranslateScaleActivity"
+            android:id="@+id/AppBarTranslateScaleActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>
