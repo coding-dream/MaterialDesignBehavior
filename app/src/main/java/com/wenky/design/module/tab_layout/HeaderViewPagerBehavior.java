@@ -32,7 +32,7 @@ public class HeaderViewPagerBehavior extends CoordinatorLayout.Behavior<View> {
         final List<View> dependencies = parent.getDependencies(child);
         final View dependency = findDependency(dependencies);
         if (dependency != null) {
-            // 保持 ViewPager 一直位于TabLayout的下面
+            // 保持 ViewPager 初始位于TabLayout的下面
             mHeadRect.set(dependency.getLeft(), dependency.getBottom(), dependency.getRight(), dependency.getBottom() + child.getMeasuredHeight());
             child.layout(mHeadRect.left, mHeadRect.top, mHeadRect.right, mHeadRect.bottom);
         }
