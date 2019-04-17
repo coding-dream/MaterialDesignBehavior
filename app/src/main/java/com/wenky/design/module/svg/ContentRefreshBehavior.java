@@ -70,12 +70,12 @@ public class ContentRefreshBehavior extends CoordinatorLayout.Behavior<View> {
         child.setTranslationY(dependency.getHeight() + dependency.getTranslationY());
 
         float degree = Math.abs(dependency.getTranslationY() / (float) dependency.getHeight());
-        dependency.findViewById(R.id.iv_refresh).setRotation(180 * (1 - degree));
+        // dependency.findViewById(R.id.iv_refresh).setRotation(180 * (1 - degree));
 
         int startColor = dependency.getContext().getResources().getColor(R.color.white);
         int endColor = dependency.getContext().getResources().getColor(R.color.Orange);
 
-        dependency.findViewById(R.id.layout_header_bg).setBackgroundColor((Integer) mArgbEvaluator.evaluate(degree, startColor, endColor));
+        dependency.setBackgroundColor((Integer) mArgbEvaluator.evaluate(degree, startColor, endColor));
         return true;
     }
 

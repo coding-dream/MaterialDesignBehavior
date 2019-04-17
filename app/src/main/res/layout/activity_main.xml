@@ -86,6 +86,17 @@
             android:id="@+id/AppBarTranslateScaleActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:text="Bug1AppBarRefreshActivity"
+            android:id="@+id/Bug1AppBarRefreshActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="Bug2AppBarRefreshActivity"
+            android:id="@+id/Bug2AppBarRefreshActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 </ScrollView>

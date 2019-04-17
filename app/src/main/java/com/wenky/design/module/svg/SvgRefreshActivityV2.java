@@ -18,21 +18,21 @@ public class SvgRefreshActivityV2 extends BaseActivity {
 
     @BindView(R.id.myCoordinatorLayout)
     MyCoordinatorLayoutV2 myCoordinatorLayout;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.scrollView)
+    RecyclerView scrollView;
     private List<String> mDatas;
 
     @Override
     public void initView() {
         testData();
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        scrollView.setLayoutManager(new GridLayoutManager(this, 1));
         BaseQuickAdapter baseQuickAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_img_txt, mDatas) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
                 helper.setText(R.id.tv_name, item);
             }
         };
-        recyclerView.setAdapter(baseQuickAdapter);
+        scrollView.setAdapter(baseQuickAdapter);
         baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

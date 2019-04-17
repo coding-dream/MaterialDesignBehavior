@@ -29,6 +29,8 @@
         <activity android:name=".module.j_shu.JShuAppBarLayoutActivity" />
         <activity android:name=".module.viewpager.ViewPagerActivity" />
         <activity android:name=".module.appbar_translate_scale.AppBarTranslateScaleActivity" />
+        <activity android:name=".module.appbar_refresh_bug.Bug1AppBarRefreshActivity" />
+        <activity android:name=".module.appbar_refresh_bug.Bug2AppBarRefreshActivity" />
     </application>
 
 </manifest>
