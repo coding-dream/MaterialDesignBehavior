@@ -7,4 +7,14 @@
     <declare-styleable name="DrawerBehavior">
         <attr name="android:layout_gravity"/>
     </declare-styleable>
+
+    <declare-styleable name="BottomSheetCustomBehavior">
+        <attr name="behavior_half_expanded_space" format="dimension"/>
+        <attr name="behavior_full_expanded_space" format="dimension"/>
+        <attr name="behavior_below_to" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="FaceLoadingView">
+        <attr name="loading_image" format="reference"/>
+    </declare-styleable>
 </resources>

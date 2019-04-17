@@ -6,6 +6,7 @@ import com.wenky.design.module.appbar.AppBarLayoutActivity;
 import com.wenky.design.module.appbar_refresh_bug.Bug1AppBarRefreshActivity;
 import com.wenky.design.module.appbar_refresh_bug.Bug2AppBarRefreshActivity;
 import com.wenky.design.module.appbar_translate_scale.AppBarTranslateScaleActivity;
+import com.wenky.design.module.bottom_sheet_custom.BottomSheetCustomActivity;
 import com.wenky.design.module.bottom_sheet_dialog.BottomSheetBehaviorActivity;
 import com.wenky.design.module.collapsing.CollapsingToolbarLayoutActivity;
 import com.wenky.design.module.common_recycleview.RecycleViewActivity;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.DrawerBehaviorActivityV1,
             R.id.DrawerBehaviorActivityV2,
             R.id.TabLayoutActivity,
+            R.id.BottomSheetCustomActivity,
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -109,6 +111,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.TabLayoutActivity:
                 startActivity(TabLayoutActivity.class);
+                break;
+            case R.id.BottomSheetCustomActivity:
+                startActivity(BottomSheetCustomActivity.class);
                 break;
             default:
                 break;

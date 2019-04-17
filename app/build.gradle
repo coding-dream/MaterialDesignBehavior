@@ -49,6 +49,6 @@ dependencies {
     implementation "com.android.support:cardview-v7:$support_version"
 
     implementation 'com.mikhaellopez:circularimageview:3.0.2'
-
+    implementation 'com.github.fodroid:XStatusBarHelper:v1.1'
 
 }
