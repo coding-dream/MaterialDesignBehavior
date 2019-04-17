@@ -96,7 +96,22 @@
             android:id="@+id/Bug2AppBarRefreshActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:text="DrawerBehaviorActivityV1"
+            android:id="@+id/DrawerBehaviorActivityV1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
+        <Button
+            android:text="DrawerBehaviorActivityV2"
+            android:id="@+id/DrawerBehaviorActivityV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="TabLayoutActivity"
+            android:id="@+id/TabLayoutActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

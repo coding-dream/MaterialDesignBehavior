@@ -10,10 +10,13 @@ import com.wenky.design.module.bottom_sheet_dialog.BottomSheetBehaviorActivity;
 import com.wenky.design.module.collapsing.CollapsingToolbarLayoutActivity;
 import com.wenky.design.module.common_recycleview.RecycleViewActivity;
 import com.wenky.design.module.double_behavior.DoubleBehaviorPreScrollActivity;
+import com.wenky.design.module.drawer.DrawerBehaviorActivityV1;
+import com.wenky.design.module.drawer.DrawerBehaviorActivityV2;
 import com.wenky.design.module.fling.FlingBehaviorActivity;
 import com.wenky.design.module.j_shu.JShuAppBarLayoutActivity;
 import com.wenky.design.module.svg.SvgRefreshActivityV1;
 import com.wenky.design.module.svg.SvgRefreshActivityV2;
+import com.wenky.design.module.tab_layout.TabLayoutActivity;
 import com.wenky.design.module.test.TestActivity;
 import com.wenky.design.module.think_appbar_source.MyCoordinatorLayoutActivity;
 import com.wenky.design.module.viewpager.ViewPagerActivity;
@@ -48,6 +51,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.AppBarTranslateScaleActivity,
             R.id.Bug1AppBarRefreshActivity,
             R.id.Bug2AppBarRefreshActivity,
+            R.id.DrawerBehaviorActivityV1,
+            R.id.DrawerBehaviorActivityV2,
+            R.id.TabLayoutActivity,
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -94,6 +100,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.Bug2AppBarRefreshActivity:
                 startActivity(Bug2AppBarRefreshActivity.class);
+                break;
+            case R.id.DrawerBehaviorActivityV1:
+                startActivity(DrawerBehaviorActivityV1.class);
+                break;
+            case R.id.DrawerBehaviorActivityV2:
+                startActivity(DrawerBehaviorActivityV2.class);
+                break;
+            case R.id.TabLayoutActivity:
+                startActivity(TabLayoutActivity.class);
                 break;
             default:
                 break;

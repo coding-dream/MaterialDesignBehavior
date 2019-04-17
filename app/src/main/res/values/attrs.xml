@@ -3,4 +3,8 @@
     <declare-styleable name="AppBarTranslateScaleBehavior">
         <attr name="behavior_destination_id" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="DrawerBehavior">
+        <attr name="android:layout_gravity"/>
+    </declare-styleable>
 </resources>
