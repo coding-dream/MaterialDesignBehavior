@@ -35,6 +35,10 @@
         <activity android:name=".module.drawer.DrawerBehaviorActivityV2" />
         <activity android:name=".module.tab_layout.TabLayoutActivity" />
         <activity android:name=".module.bottom_sheet_custom.BottomSheetCustomActivity" />
+        <activity android:name=".module.my_swipe_refresh.v1.MySwipeRefreshActivityV1" />
+        <activity android:name=".module.my_swipe_refresh.v2.MySwipeRefreshActivityV2" />
+        <activity android:name=".module.my_swipe_refresh.v1.MySwipeRefreshActivityV0" />
+        <activity android:name=".module.my_swipe_refresh.v3.MySwipeRefreshActivityV3" />
     </application>
 
 </manifest>

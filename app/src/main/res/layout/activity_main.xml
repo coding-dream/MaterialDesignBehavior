@@ -117,6 +117,26 @@
             android:id="@+id/BottomSheetCustomActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:text="MySwipeRefreshActivityV0"
+            android:id="@+id/MySwipeRefreshActivityV0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="MySwipeRefreshActivityV1"
+            android:id="@+id/MySwipeRefreshActivityV1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="MySwipeRefreshActivityV2"
+            android:id="@+id/MySwipeRefreshActivityV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="MySwipeRefreshActivityV3"
+            android:id="@+id/MySwipeRefreshActivityV3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

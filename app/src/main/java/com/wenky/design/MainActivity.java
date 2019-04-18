@@ -15,6 +15,10 @@ import com.wenky.design.module.drawer.DrawerBehaviorActivityV1;
 import com.wenky.design.module.drawer.DrawerBehaviorActivityV2;
 import com.wenky.design.module.fling.FlingBehaviorActivity;
 import com.wenky.design.module.j_shu.JShuAppBarLayoutActivity;
+import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV0;
+import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV1;
+import com.wenky.design.module.my_swipe_refresh.v2.MySwipeRefreshActivityV2;
+import com.wenky.design.module.my_swipe_refresh.v3.MySwipeRefreshActivityV3;
 import com.wenky.design.module.svg.SvgRefreshActivityV1;
 import com.wenky.design.module.svg.SvgRefreshActivityV2;
 import com.wenky.design.module.tab_layout.TabLayoutActivity;
@@ -56,11 +60,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.DrawerBehaviorActivityV2,
             R.id.TabLayoutActivity,
             R.id.BottomSheetCustomActivity,
+            R.id.MySwipeRefreshActivityV0,
+            R.id.MySwipeRefreshActivityV1,
+            R.id.MySwipeRefreshActivityV2,
+            R.id.MySwipeRefreshActivityV3,
     })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_test:
                 startActivity(TestActivity.class);
+                break;
             case R.id.btn_appbar:
                 startActivity(AppBarLayoutActivity.class);
                 break;
@@ -114,6 +123,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.BottomSheetCustomActivity:
                 startActivity(BottomSheetCustomActivity.class);
+                break;
+            case R.id.MySwipeRefreshActivityV0:
+                startActivity(MySwipeRefreshActivityV0.class);
+                break;
+            case R.id.MySwipeRefreshActivityV1:
+                startActivity(MySwipeRefreshActivityV1.class);
+                break;
+            case R.id.MySwipeRefreshActivityV2:
+                startActivity(MySwipeRefreshActivityV2.class);
+                break;
+            case R.id.MySwipeRefreshActivityV3:
+                startActivity(MySwipeRefreshActivityV3.class);
                 break;
             default:
                 break;
