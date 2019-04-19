@@ -1,31 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/button"
-        android:text="测试"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_input"
+            <TextView
+                android:text="@string/long_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:text="Header"
+        android:background="#1A1A19"
+        app:layout_behavior="com.wenky.design.module.test.EmptyBehavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_message"
-        android:background="#E91E63"
-        android:lineSpacingMultiplier="1.1"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:textDirection="firstStrong"
-        android:textSize="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-</LinearLayout>
+        android:layout_height="200dp" />
+</android.support.design.widget.CoordinatorLayout>
