@@ -18,11 +18,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshLayout;
 import com.wenky.design.util.LogHelper;
 import com.wenky.design.util.SystemUtils;
 
@@ -72,8 +74,13 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
 
     private static final float DRAG_RATE = .5f;
     private boolean isViewPagerDragging;
+    private View mNestedScrollingTarget;
 
     // ================================
+
+    public void setOnRefreshListener(OnRefreshListener listener) {
+        mListener = listener;
+    }
 
     public interface OnRefreshListener {
         void onRefresh();
@@ -131,13 +138,26 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
         mTotalUnconsumed = 0;
         mNestedScrollInProgress = true;
+
+        mNestedScrollingTarget = target;
     }
 
+    /**
+     * 每次手指按下：都会触发两次下面的事件，需要小心。
+     * D/LogHelper: onStartNestedScroll
+     * D/LogHelper: onNestedScrollAccepted
+     * D/LogHelper: onStopNestedScroll: 1
+     *
+     * D/LogHelper: onStartNestedScroll
+     * D/LogHelper: onNestedScrollAccepted
+     * D/LogHelper: onStopNestedScroll: 1
+     */
     @Override
     public void onStopNestedScroll(@NonNull View target, int type) {
         LogHelper.d("onStopNestedScroll: 1");
         mNestedScrollingParentHelper.onStopNestedScroll(target, type);
         mNestedScrollInProgress = false;
+        mNestedScrollingTarget = null;
         // Finish the spinner for nested scrolling if we ever consumed any
         // unconsumed nested scroll
         // onStopNestedScroll 会在首次触摸屏幕也会触发，所以onNestedScrollAccepted设置mTotalUnconsumed = 0这里if判断 > 0 保证了只在结束时触发一次。
@@ -157,10 +177,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
                 consumed[1] = dy - (int) mTotalUnconsumed;
                 mTotalUnconsumed = 0;
             } else {
+                LogHelper.d("dy: " + dy + " mTotalUnconsumed: " + mTotalUnconsumed);
                 mTotalUnconsumed -= dy;
                 consumed[1] = dy;
             }
             moveSpinner(mTotalUnconsumed);
+            onChildViewsChanged();
         }
     }
 
@@ -169,8 +191,10 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         // 下拉刷新
         final int dy = dyUnconsumed;
         if (dy < 0 && !canFingerScrollDown()) {
+            LogHelper.d("dxUnconsumed: " + dxUnconsumed + " mTotalUnconsumed: " + mTotalUnconsumed);
             mTotalUnconsumed += Math.abs(dy);
             moveSpinner(mTotalUnconsumed);
+            onChildViewsChanged();
         }
     }
 
@@ -213,6 +237,8 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      * @param overScrollTop 事件滑动距离顶部的距离（正值）
      */
     private void moveSpinner(float overScrollTop) {
+        // 设置比率，不让滑动的太快
+        overScrollTop = overScrollTop * DRAG_RATE;
         int newTranslateY = (int) (overScrollTop + minTranslateY);
         newTranslateY = Math.min(newTranslateY, maxTranslateY);
         mCircleView.setTranslationY(newTranslateY);
@@ -222,7 +248,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      * 结束下拉刷新
      */
     private void finishSpinner() {
-        if (mCircleView.getTranslationY() >= maxTranslateY * (2 / 3f)) {
+        if (mCircleView.getTranslationY() >= maxTranslateY * (1 / 2f)) {
             setRefreshing(true);
         } else {
             cancelRefresh();
@@ -239,6 +265,9 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     }
 
     public void setRefreshing(boolean refreshing) {
+        if (mCircleView == null) {
+            return;
+        }
         if (mRefreshing != refreshing) {
             mRefreshing = refreshing;
             if (mRefreshing) {
@@ -279,7 +308,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         if (mStartAnimator != null) {
             mStartAnimator.cancel();
         }
-        mStartAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), maxTranslateY / 2f);
+        mStartAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), maxTranslateY * .3f);
         mStartAnimator.setDuration(200);
         mStartAnimator.setInterpolator(new DecelerateInterpolator());
         mStartAnimator.addListener(refreshAnimatorListener);
@@ -410,12 +439,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         if (!enabled) {
             reset();
         }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        reset();
     }
 
     /**
@@ -559,7 +582,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
                 isStartDragging(y);
 
                 if (mIsBeingDragged) {
-                    final float overScrollTop = (y - mInitialMotionY) * DRAG_RATE;
+                    final float overScrollTop = (y - mInitialMotionY);
                     // 只处理 > 0 的时候，说明手势只有下拉的时候才触发(或者手指终点位置 > 手指起始位置)
                     if (overScrollTop > 0) {
                         moveSpinner(overScrollTop);
@@ -637,5 +660,45 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     protected void onFinishInflate() {
         super.onFinishInflate();
         mCircleView.bringToFront();
+    }
+
+    private OnPreDrawListener mOnPreDrawListener;
+
+    class OnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {
+        @Override
+        public boolean onPreDraw() {
+            onChildViewsChanged();
+            return true;
+        }
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (mOnPreDrawListener == null) {
+            mOnPreDrawListener = new OnPreDrawListener();
+        }
+        final ViewTreeObserver vto = getViewTreeObserver();
+        vto.addOnPreDrawListener(mOnPreDrawListener);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        reset();
+
+        if (mOnPreDrawListener != null) {
+            ViewTreeObserver vto = getViewTreeObserver();
+            vto.removeOnPreDrawListener(mOnPreDrawListener);
+        }
+
+        if (mNestedScrollingTarget != null) {
+            onStopNestedScroll(mNestedScrollingTarget);
+        }
+    }
+
+    private void onChildViewsChanged() {
+        float translateY = mCircleView.getTranslationY();
+        mTarget.setTranslationY(translateY - minTranslateY);
     }
 }

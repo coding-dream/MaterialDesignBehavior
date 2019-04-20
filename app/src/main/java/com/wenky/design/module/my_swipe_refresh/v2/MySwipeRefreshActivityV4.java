@@ -1,5 +1,6 @@
 package com.wenky.design.module.my_swipe_refresh.v2;
 
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.Button;
 
 import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
+
+import org.jetbrains.anko.ToastsKt;
 
 import butterknife.BindView;
 
@@ -21,17 +24,47 @@ public class MySwipeRefreshActivityV4 extends BaseActivity {
     AppBarLayout appBarLayout;
     private boolean mCanFingerScrollDown;
 
+    private Handler mHandler = new Handler();
+
     @Override
     public void initView() {
-        button.setOnClickListener(new View.OnClickListener() {
+        // fixConflict1();
+        fixConflict2();
+
+        mHandler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                nonoRefreshLayout.setRefreshing(false);
+            public void run() {
+                nonoRefreshLayout.setRefreshing(true);
+            }
+        }, 500);
+
+        nonoRefreshLayout.setOnRefreshListener(new NonoRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ToastsKt.toast(MySwipeRefreshActivityV4.this, "正在刷新数据~");
+                requestData();
             }
         });
+    }
 
-        fixConflict1();
-        fixConflict2();
+    private void requestData() {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 注意：测试存在延时执行代码的一定要判空处理且 onDestroy时移除消息防止崩溃
+                        if (nonoRefreshLayout != null) {
+                            nonoRefreshLayout.setRefreshing(false);
+                            ToastsKt.toast(MySwipeRefreshActivityV4.this, "刷新完成~");
+                        }
+                    }
+                }, 3000);
+            }
+        };
+        thread.start();
     }
 
     private void fixConflict1() {
@@ -73,5 +106,11 @@ public class MySwipeRefreshActivityV4 extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_my_refresh_v4;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }
