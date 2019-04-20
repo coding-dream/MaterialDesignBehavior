@@ -24,7 +24,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshLayout;
 import com.wenky.design.util.LogHelper;
 import com.wenky.design.util.SystemUtils;
 
@@ -61,6 +60,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     private ObjectAnimator mStartAnimator;
     private ObjectAnimator mEndAnimator;
     private ObjectAnimator mCancelAnimator;
+    private boolean isAnimatorRunning = false;
 
 
     // 非Nested机制的支持
@@ -281,6 +281,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
 
                         if (mListener != null) {
                             mListener.onRefresh();
+                            isAnimatorRunning = false;
                         }
                     }
                 });
@@ -293,6 +294,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         reset();
+                        isAnimatorRunning = false;
                     }
                 });
             }
@@ -307,12 +309,14 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         LogHelper.d("startRefreshAnimator");
         if (mStartAnimator != null) {
             mStartAnimator.cancel();
+            isAnimatorRunning = false;
         }
         mStartAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), maxTranslateY * .3f);
         mStartAnimator.setDuration(200);
         mStartAnimator.setInterpolator(new DecelerateInterpolator());
         mStartAnimator.addListener(refreshAnimatorListener);
         mStartAnimator.start();
+        isAnimatorRunning = true;
     }
 
     /**
@@ -323,12 +327,14 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         LogHelper.d("finishRefreshAnimator");
         if (mEndAnimator != null) {
             mEndAnimator.cancel();
+            isAnimatorRunning = false;
         }
         mEndAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), minTranslateY);
         mEndAnimator.setDuration(200);
         mEndAnimator.setInterpolator(new AccelerateInterpolator());
         mEndAnimator.addListener(refreshAnimatorListener);
         mEndAnimator.start();
+        isAnimatorRunning = true;
     }
 
     /**
@@ -338,11 +344,20 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         LogHelper.d("cancelRefreshAnimator");
         if (mCancelAnimator != null) {
             mCancelAnimator.cancel();
+            isAnimatorRunning = false;
         }
         mCancelAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), minTranslateY);
         mCancelAnimator.setDuration(200);
         mCancelAnimator.setInterpolator(new AccelerateInterpolator());
+        mCancelAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                isAnimatorRunning = false;
+            }
+        });
         mCancelAnimator.start();
+        isAnimatorRunning = true;
     }
 
     @Override
@@ -490,7 +505,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         final int action = ev.getActionMasked();
         int pointerIndex;
-        if (!isEnabled() || canFingerScrollDown() || mRefreshing || mNestedScrollInProgress) {
+        if (!isEnabled() || canFingerScrollDown() || mRefreshing || mNestedScrollInProgress || isAnimatorRunning) {
             // Fail fast if we're not in a state where a swipe is possible
             return false;
         }
@@ -552,8 +567,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         final int action = ev.getActionMasked();
         int pointerIndex = -1;
 
-        if (!isEnabled() || canFingerScrollDown()
-                || mRefreshing || mNestedScrollInProgress) {
+        if (!isEnabled() || canFingerScrollDown() || mRefreshing || mNestedScrollInProgress || isAnimatorRunning) {
             // Fail fast if we're not in a state where a swipe is possible
             return false;
         }
