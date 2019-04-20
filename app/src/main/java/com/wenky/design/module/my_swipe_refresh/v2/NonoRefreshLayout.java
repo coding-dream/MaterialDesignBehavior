@@ -480,6 +480,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     private float startX;
     private float startY;
 
+    /**
+     * 非Nested机制的子View，使用的是onInterceptTouchEvent + onTouchEvent触发滑动刷新的
+     *
+     * @param ev
+     * @return
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         final int action = ev.getActionMasked();
@@ -491,6 +497,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                // 首次按下，触摸点的index = 0
                 mActivePointerId = ev.getPointerId(0);
                 mIsBeingDragged = false;
 
@@ -530,20 +537,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
 
                 isStartDragging(y);
                 break;
-            case MotionEvent.ACTION_POINTER_DOWN: {
-                pointerIndex = ev.getActionIndex();
-                if (pointerIndex < 0) {
-                    Log.e(TAG, "Got ACTION_POINTER_DOWN event but have an invalid action index.");
-                    return false;
-                }
-                mActivePointerId = ev.getPointerId(pointerIndex);
-                break;
-            }
-
-            case MotionEvent.ACTION_POINTER_UP:
-                onSecondaryPointerUp(ev);
-                break;
-
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mIsBeingDragged = false;
@@ -568,6 +561,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = ev.getPointerId(0);
+                LogHelper.d("onTouchEvent: ACTION_DOWN " + mActivePointerId);
                 mIsBeingDragged = false;
                 break;
 
@@ -593,6 +587,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
                 break;
             }
             case MotionEvent.ACTION_POINTER_DOWN: {
+                // ACTION_POINTER_DOWN 在 onInterceptTouchEvent 不会被触发，所以onInterceptTouchEvent不需要加此事件。
                 pointerIndex = ev.getActionIndex();
                 if (pointerIndex < 0) {
                     Log.e(TAG, "Got ACTION_POINTER_DOWN event but have an invalid action index.");
