@@ -118,11 +118,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
-            android:text="MySwipeRefreshActivityV0"
-            android:id="@+id/MySwipeRefreshActivityV0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
             android:text="MySwipeRefreshActivityV1"
             android:id="@+id/MySwipeRefreshActivityV1"
             android:layout_width="wrap_content"
@@ -135,6 +130,11 @@
         <Button
             android:text="MySwipeRefreshActivityV3"
             android:id="@+id/MySwipeRefreshActivityV3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="MySwipeRefreshActivityV4"
+            android:id="@+id/MySwipeRefreshActivityV4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

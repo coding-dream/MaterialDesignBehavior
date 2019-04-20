@@ -683,7 +683,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
      * Set a callback to override {@link MySwipeRefreshLayout#canChildScrollUp()} method. Non-null
      * callback will return the value provided by the callback and ignore all internal logic.
      *
-     * @param callback Callback that should be called when canChildScrollUp() is called.
+     * @param callback Callback that should be called when canFingerScrollDown() is called.
      */
     public void setOnChildScrollUpCallback(@Nullable OnChildScrollUpCallback callback) {
         mChildScrollUpCallback = callback;

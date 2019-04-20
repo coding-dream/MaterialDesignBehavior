@@ -1,16 +1,15 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <com.wenky.design.module.my_swipe_refresh.v3.MyRefreshLayoutV3
+    <com.wenky.design.module.my_swipe_refresh.v2.NonoRefreshLayout
+        android:id="@+id/myRefreshLayoutV3"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
-            app:layout_behavior="com.wenky.design.module.svg.ContentRefreshBehavior"
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -21,5 +20,11 @@
                 android:layout_height="match_parent" />
 
         </android.support.v4.widget.NestedScrollView>
-    </com.wenky.design.module.my_swipe_refresh.v3.MyRefreshLayoutV3>
+    </com.wenky.design.module.my_swipe_refresh.v2.NonoRefreshLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:text="暂停动画"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

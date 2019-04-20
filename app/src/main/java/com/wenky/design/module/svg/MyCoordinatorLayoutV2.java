@@ -189,7 +189,7 @@ public class MyCoordinatorLayoutV2 extends CoordinatorLayout implements NestedSc
     }
 
     private void initView() {
-        inflate(mContext, R.layout.layout_refresh_v2, this);
+        inflate(mContext, R.layout.layout_refresh_behavior_v2, this);
         ivRefresh = findViewById(R.id.iv_refresh);
         svgaImageView = findViewById(R.id.svg_loading_refresh);
     }

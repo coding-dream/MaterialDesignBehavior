@@ -1,4 +1,4 @@
-package com.wenky.design.module.my_swipe_refresh.v3;
+package com.wenky.design.module.my_swipe_refresh.v2;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

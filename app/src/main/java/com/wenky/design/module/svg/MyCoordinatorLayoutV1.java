@@ -7,7 +7,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,7 +65,7 @@ public class MyCoordinatorLayoutV1 extends CoordinatorLayout {
     }
 
     private void initView() {
-        inflate(mContext, R.layout.layout_refresh, this);
+        inflate(mContext, R.layout.layout_refresh_behavior_v1, this);
         ivRefresh = findViewById(R.id.iv_refresh);
         svgaImageView = findViewById(R.id.svg_loading_refresh);
         appBarLayout = findViewById(R.id.appBarLayout);
