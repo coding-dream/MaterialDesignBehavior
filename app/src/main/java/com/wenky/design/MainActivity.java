@@ -3,8 +3,6 @@ package com.wenky.design;
 import android.view.View;
 import com.wenky.design.base.BaseActivity;
 import com.wenky.design.module.appbar.AppBarLayoutActivity;
-import com.wenky.design.module.appbar_refresh_bug.Bug1AppBarRefreshActivity;
-import com.wenky.design.module.appbar_refresh_bug.Bug2AppBarRefreshActivity;
 import com.wenky.design.module.appbar_translate_scale.AppBarTranslateScaleActivity;
 import com.wenky.design.module.bottom_sheet_custom.BottomSheetCustomActivity;
 import com.wenky.design.module.bottom_sheet_dialog.BottomSheetBehaviorActivity;
@@ -54,8 +52,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.JShuAppBarLayoutActivity,
             R.id.ViewPagerActivity,
             R.id.AppBarTranslateScaleActivity,
-            R.id.Bug1AppBarRefreshActivity,
-            R.id.Bug2AppBarRefreshActivity,
             R.id.DrawerBehaviorActivityV1,
             R.id.DrawerBehaviorActivityV2,
             R.id.TabLayoutActivity,
@@ -105,12 +101,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.AppBarTranslateScaleActivity:
                 startActivity(AppBarTranslateScaleActivity.class);
-                break;
-            case R.id.Bug1AppBarRefreshActivity:
-                startActivity(Bug1AppBarRefreshActivity.class);
-                break;
-            case R.id.Bug2AppBarRefreshActivity:
-                startActivity(Bug2AppBarRefreshActivity.class);
                 break;
             case R.id.DrawerBehaviorActivityV1:
                 startActivity(DrawerBehaviorActivityV1.class);
