@@ -1,9 +1,9 @@
-package com.wenky.design.module.think_appbar_source;
+package com.wenky.design.module.fix_appbar_bug;
 
 import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
 
-public class MyCoordinatorLayoutActivity extends BaseActivity {
+public class FixBugAppBarLayoutActivity extends BaseActivity {
 
     @Override
     public void initView() {

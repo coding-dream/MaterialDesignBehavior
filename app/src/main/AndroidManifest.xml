@@ -19,7 +19,7 @@
         <activity android:name=".module.appbar.AppBarLayoutActivity" />
         <activity android:name=".module.collapsing.CollapsingToolbarLayoutActivity" />
         <activity android:name=".module.common_recycleview.RecycleViewActivity" />
-        <activity android:name=".module.think_appbar_source.MyCoordinatorLayoutActivity" />
+        <activity android:name=".module.fix_appbar_bug.FixBugAppBarLayoutActivity" />
         <activity android:name=".module.double_behavior.DoubleBehaviorPreScrollActivity" />
         <activity android:name=".module.fling.FlingBehaviorActivity" />
         <activity android:name=".module.svg.SvgRefreshActivityV2" />

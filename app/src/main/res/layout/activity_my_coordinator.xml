@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
-        app:layout_behavior="com.wenky.design.module.think_appbar_source.FixAppBarLayoutBehavior"
+        app:layout_behavior="com.wenky.design.module.fix_appbar_bug.FixAppBarLayoutBehavior1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -30,7 +30,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.wenky.design.module.think_appbar_source.ContentScrollingViewBehavior">
+        app:layout_behavior="com.wenky.design.module.fix_appbar_bug.ContentScrollingViewBehavior">
 
         <TextView
             android:layout_width="wrap_content"

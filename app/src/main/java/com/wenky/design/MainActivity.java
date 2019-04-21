@@ -21,7 +21,7 @@ import com.wenky.design.module.svg.SvgRefreshActivityV1;
 import com.wenky.design.module.svg.SvgRefreshActivityV2;
 import com.wenky.design.module.tab_layout.TabLayoutActivity;
 import com.wenky.design.module.test.TestActivity;
-import com.wenky.design.module.think_appbar_source.MyCoordinatorLayoutActivity;
+import com.wenky.design.module.fix_appbar_bug.FixBugAppBarLayoutActivity;
 import com.wenky.design.module.viewpager.ViewPagerActivity;
 
 import butterknife.OnClick;
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.btn_appbar,
             R.id.btn_simple_behavior,
             R.id.btn_recycleView,
-            R.id.btn_myCoordinatorLayout,
+            R.id.FixBugAppBarLayoutActivity,
             R.id.btn_doubleBehaviorPreScrollActivity,
             R.id.btn_flingBehaviorActivity,
             R.id.btn_svgRefreshActivityV1,
@@ -75,8 +75,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_recycleView:
                 startActivity(RecycleViewActivity.class);
                 break;
-            case R.id.btn_myCoordinatorLayout:
-                startActivity(MyCoordinatorLayoutActivity.class);
+            case R.id.FixBugAppBarLayoutActivity:
+                startActivity(FixBugAppBarLayoutActivity.class);
                 break;
             case R.id.btn_doubleBehaviorPreScrollActivity:
                 startActivity(DoubleBehaviorPreScrollActivity.class);

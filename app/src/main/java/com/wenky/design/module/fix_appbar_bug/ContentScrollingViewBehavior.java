@@ -1,4 +1,4 @@
-package com.wenky.design.module.think_appbar_source;
+package com.wenky.design.module.fix_appbar_bug;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;

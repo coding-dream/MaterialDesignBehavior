@@ -36,8 +36,8 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:text="MyCoordinatorLayoutActivity"
-            android:id="@+id/btn_myCoordinatorLayout"
+            android:text="FixBugAppBarLayoutActivity"
+            android:id="@+id/FixBugAppBarLayoutActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

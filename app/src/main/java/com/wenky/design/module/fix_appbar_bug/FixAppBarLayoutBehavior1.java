@@ -1,4 +1,4 @@
-package com.wenky.design.module.think_appbar_source;
+package com.wenky.design.module.fix_appbar_bug;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
@@ -17,15 +17,15 @@ import static android.view.MotionEvent.ACTION_DOWN;
  * Description: 通过反射 , 修复AppBarLayout 滑动抖动的问题
  * Android P收窄反射需要注意使用
  */
-public class FixAppBarLayoutBehavior extends AppBarLayout.Behavior {
+public class FixAppBarLayoutBehavior1 extends AppBarLayout.Behavior {
 
-    private static final String TAG = "AppBarLayoutBehavior";
+    private static final String TAG = "FixAppBarLayoutBehavior2";
 
-    public FixAppBarLayoutBehavior() {
+    public FixAppBarLayoutBehavior1() {
         super();
     }
 
-    public FixAppBarLayoutBehavior(Context context, AttributeSet attrs) {
+    public FixAppBarLayoutBehavior1(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
