@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.opensource.svgaplayer.SVGACallback;
 import com.opensource.svgaplayer.SVGAImageView;
 import com.opensource.svgaplayer.SVGAParser;
@@ -46,7 +45,7 @@ public class NonoRefreshView extends FrameLayout {
             return;
         }
         SVGAParser svgaParser = new SVGAParser(mContext);
-        svgaImageView.setLoops(5);
+        svgaImageView.setLoops(-1);
         svgaImageView.setCallback(new SVGACallback() {
             @Override
             public void onPause() {
@@ -86,8 +85,10 @@ public class NonoRefreshView extends FrameLayout {
     }
 
     public void stopLoadingView() {
-        svgaImageView.stopAnimation();
-        ivRefresh.setVisibility(View.VISIBLE);
-        svgaImageView.setVisibility(View.INVISIBLE);
+        if (svgaImageView != null) {
+            svgaImageView.stopAnimation();
+            ivRefresh.setVisibility(View.VISIBLE);
+            svgaImageView.setVisibility(View.INVISIBLE);
+        }
     }
 }

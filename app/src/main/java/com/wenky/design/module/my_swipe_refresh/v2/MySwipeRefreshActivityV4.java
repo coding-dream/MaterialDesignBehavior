@@ -30,13 +30,13 @@ public class MySwipeRefreshActivityV4 extends BaseActivity {
     public void initView() {
         // fixConflict1();
         fixConflict2();
-
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nonoRefreshLayout.setRefreshing(true);
-            }
-        }, 500);
+//
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                nonoRefreshLayout.setRefreshing(true);
+//            }
+//        }, 500);
 
         nonoRefreshLayout.setOnRefreshListener(new NonoRefreshLayout.OnRefreshListener() {
             @Override

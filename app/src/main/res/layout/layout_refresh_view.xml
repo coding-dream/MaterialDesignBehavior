@@ -20,8 +20,8 @@
     <com.opensource.svgaplayer.SVGAImageView
         android:id="@+id/svg_loading_refresh"
         android:layout_gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="41dp"
+        android:layout_height="55dp"
         app:clearsAfterStop="false"
         app:fillMode="Forward"
 
@@ -39,8 +39,8 @@
 
         android:id="@+id/iv_refresh"
         android:src="@mipmap/ic_refresh_holder"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="41dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
         />
 </android.support.constraint.ConstraintLayout>

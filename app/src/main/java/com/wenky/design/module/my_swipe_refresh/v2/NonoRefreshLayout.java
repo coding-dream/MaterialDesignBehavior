@@ -24,11 +24,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.wenky.design.util.LogHelper;
 import com.wenky.design.util.SystemUtils;
 
 /**
- * 注意该库的 刷新状态 + 完成刷新状态 都是由用户设置
+ * Created by wl on 2019/4/26.
  */
 public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParent2 {
 
@@ -39,11 +38,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     NonoRefreshView mCircleView;
     private int mCircleViewIndex = -1;
 
-    int mCircleViewWidth = SystemUtils.dip2px(getContext(), 50);
-    int mCircleViewHeight = SystemUtils.dip2px(getContext(), 50);
+    int mCircleViewWidth = SystemUtils.dip2px(getContext(), 41);
+    int mCircleViewHeight = SystemUtils.dip2px(getContext(), 55);
 
     int minTranslateY = -mCircleViewHeight;
-    int maxTranslateY = SystemUtils.dip2px(getContext(), 100);
+    int maxTranslateY = SystemUtils.dip2px(getContext(), 150);
 
     private OnCanFingerDownCallback mFingerDownCallback;
 
@@ -72,7 +71,7 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      */
     private float mInitialMotionY;
 
-    private static final float DRAG_RATE = .5f;
+    private static final float DRAG_RATE = .6f;
     private boolean isViewPagerDragging;
     private View mNestedScrollingTarget;
 
@@ -127,13 +126,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      */
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int nestedScrollAxes, int type) {
-        LogHelper.d("onStartNestedScroll");
         return isEnabled() && !mRefreshing && (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0 && type == ViewCompat.TYPE_TOUCH;
     }
 
     @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
-        LogHelper.d("onNestedScrollAccepted");
         // Reset the counter of how much leftover scroll needs to be consumed.
         mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
         mTotalUnconsumed = 0;
@@ -154,7 +151,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      */
     @Override
     public void onStopNestedScroll(@NonNull View target, int type) {
-        LogHelper.d("onStopNestedScroll: 1");
         mNestedScrollingParentHelper.onStopNestedScroll(target, type);
         mNestedScrollInProgress = false;
         mNestedScrollingTarget = null;
@@ -162,7 +158,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         // unconsumed nested scroll
         // onStopNestedScroll 会在首次触摸屏幕也会触发，所以onNestedScrollAccepted设置mTotalUnconsumed = 0这里if判断 > 0 保证了只在结束时触发一次。
         if (mTotalUnconsumed > 0) {
-            LogHelper.d("onStopNestedScroll: 2");
             finishSpinner();
             mTotalUnconsumed = 0;
         }
@@ -177,7 +172,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
                 consumed[1] = dy - (int) mTotalUnconsumed;
                 mTotalUnconsumed = 0;
             } else {
-                LogHelper.d("dy: " + dy + " mTotalUnconsumed: " + mTotalUnconsumed);
                 mTotalUnconsumed -= dy;
                 consumed[1] = dy;
             }
@@ -191,7 +185,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         // 下拉刷新
         final int dy = dyUnconsumed;
         if (dy < 0 && !canFingerScrollDown()) {
-            LogHelper.d("dxUnconsumed: " + dxUnconsumed + " mTotalUnconsumed: " + mTotalUnconsumed);
             mTotalUnconsumed += Math.abs(dy);
             moveSpinner(mTotalUnconsumed);
             onChildViewsChanged();
@@ -306,13 +299,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      * @param refreshAnimatorListener
      */
     private void startRefreshAnimator(AnimatorListenerAdapter refreshAnimatorListener) {
-        LogHelper.d("startRefreshAnimator");
         if (mStartAnimator != null) {
             mStartAnimator.cancel();
             isAnimatorRunning = false;
         }
-        mStartAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), maxTranslateY * .3f);
-        mStartAnimator.setDuration(200);
+        mStartAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), 0);
+        mStartAnimator.setDuration(150);
         mStartAnimator.setInterpolator(new DecelerateInterpolator());
         mStartAnimator.addListener(refreshAnimatorListener);
         mStartAnimator.start();
@@ -324,13 +316,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      * @param refreshAnimatorListener
      */
     private void finishRefreshAnimator(AnimatorListenerAdapter refreshAnimatorListener) {
-        LogHelper.d("finishRefreshAnimator");
         if (mEndAnimator != null) {
             mEndAnimator.cancel();
             isAnimatorRunning = false;
         }
         mEndAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), minTranslateY);
-        mEndAnimator.setDuration(200);
+        mEndAnimator.setDuration(150);
         mEndAnimator.setInterpolator(new AccelerateInterpolator());
         mEndAnimator.addListener(refreshAnimatorListener);
         mEndAnimator.start();
@@ -341,13 +332,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
      * 取消刷新后，移动到开始位置
      */
     private void cancelRefreshAnimator() {
-        LogHelper.d("cancelRefreshAnimator");
         if (mCancelAnimator != null) {
             mCancelAnimator.cancel();
             isAnimatorRunning = false;
         }
         mCancelAnimator = ObjectAnimator.ofFloat(mCircleView, "translationY", mCircleView.getTranslationY(), minTranslateY);
-        mCancelAnimator.setDuration(200);
+        mCancelAnimator.setDuration(80);
         mCancelAnimator.setInterpolator(new AccelerateInterpolator());
         mCancelAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -575,7 +565,6 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = ev.getPointerId(0);
-                LogHelper.d("onTouchEvent: ACTION_DOWN " + mActivePointerId);
                 mIsBeingDragged = false;
                 break;
 
@@ -707,6 +696,12 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     }
 
     private void onChildViewsChanged() {
+        if (mTarget == null) {
+            ensureTarget();
+        }
+        if (mTarget == null || mCircleView == null) {
+            return;
+        }
         float translateY = mCircleView.getTranslationY();
         mTarget.setTranslationY(translateY - minTranslateY);
     }
