@@ -127,6 +127,16 @@
             android:id="@+id/MySwipeRefreshActivityV4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:text="FloatButtonActivity"
+            android:id="@+id/FloatButtonActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="BottomButtonActivity"
+            android:id="@+id/BottomButtonActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

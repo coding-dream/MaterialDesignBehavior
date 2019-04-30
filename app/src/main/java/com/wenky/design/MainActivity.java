@@ -2,6 +2,8 @@ package com.wenky.design;
 
 import android.view.View;
 import com.wenky.design.base.BaseActivity;
+import com.wenky.design.bottombutton.BottomButtonActivity;
+import com.wenky.design.floatbutton.FloatButtonActivity;
 import com.wenky.design.module.appbar.AppBarLayoutActivity;
 import com.wenky.design.module.appbar_translate_scale.AppBarTranslateScaleActivity;
 import com.wenky.design.module.bottom_sheet_custom.BottomSheetCustomActivity;
@@ -12,6 +14,7 @@ import com.wenky.design.module.double_behavior.DoubleBehaviorPreScrollActivity;
 import com.wenky.design.module.drawer.DrawerBehaviorActivityV1;
 import com.wenky.design.module.drawer.DrawerBehaviorActivityV2;
 import com.wenky.design.module.fling.FlingBehaviorActivity;
+import com.wenky.design.module.intercept.InterceptBehaviorActivity;
 import com.wenky.design.module.j_shu.JShuAppBarLayoutActivity;
 import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV1;
 import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV2;
@@ -60,11 +63,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.MySwipeRefreshActivityV2,
             R.id.MySwipeRefreshActivityV3,
             R.id.MySwipeRefreshActivityV4,
+            R.id.FloatButtonActivity,
+            R.id.BottomButtonActivity,
     })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_test:
-                startActivity(TestActivity.class);
+                startActivity(FloatButtonActivity.class);
                 break;
             case R.id.btn_appbar:
                 startActivity(AppBarLayoutActivity.class);
@@ -125,6 +130,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.MySwipeRefreshActivityV4:
                 startActivity(MySwipeRefreshActivityV4.class);
+                break;
+            case R.id.FloatButtonActivity:
+                startActivity(FloatButtonActivity.class);
+                break;
+            case R.id.BottomButtonActivity:
+                startActivity(BottomButtonActivity.class);
                 break;
             default:
                 break;

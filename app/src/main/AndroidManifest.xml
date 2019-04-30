@@ -37,6 +37,9 @@
         <activity android:name=".module.my_swipe_refresh.v1.MySwipeRefreshActivityV2" />
         <activity android:name=".module.my_swipe_refresh.v2.MySwipeRefreshActivityV3" />
         <activity android:name=".module.my_swipe_refresh.v2.MySwipeRefreshActivityV4" />
+        <activity android:name=".module.intercept.InterceptBehaviorActivity" />
+        <activity android:name=".floatbutton.FloatButtonActivity" />
+        <activity android:name=".bottombutton.BottomButtonActivity" />
     </application>
 
 </manifest>
