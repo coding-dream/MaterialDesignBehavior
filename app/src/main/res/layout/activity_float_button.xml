@@ -14,7 +14,7 @@
         android:text="弹起来吧"
         android:layout_gravity="end|bottom"
         android:textColor="@color/red"
-        app:layout_behavior="com.wenky.design.floatbutton.FloatButtonBehavior"
+        app:layout_behavior="com.wenky.design.module.floatbutton.FloatButtonBehavior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

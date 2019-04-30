@@ -1,4 +1,4 @@
-package com.wenky.design.floatbutton;
+package com.wenky.design.module.floatbutton;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;

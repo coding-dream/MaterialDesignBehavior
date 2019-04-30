@@ -1,4 +1,4 @@
-package com.wenky.design.floatbutton;
+package com.wenky.design.module.floatbutton;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

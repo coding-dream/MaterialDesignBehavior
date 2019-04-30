@@ -40,5 +40,5 @@
         android:gravity="center"
         android:text="我是底部导航栏"
         android:textColor="@color/white"
-        app:layout_behavior="com.wenky.design.bottombutton.BottomBehavior"/>
+        app:layout_behavior="com.wenky.design.module.bottombutton.BottomBehavior"/>
 </android.support.design.widget.CoordinatorLayout>

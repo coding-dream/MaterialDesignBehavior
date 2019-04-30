@@ -1,4 +1,4 @@
-package com.wenky.design.bottombutton;
+package com.wenky.design.module.bottombutton;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;

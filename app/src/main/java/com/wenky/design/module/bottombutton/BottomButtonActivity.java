@@ -1,4 +1,4 @@
-package com.wenky.design.bottombutton;
+package com.wenky.design.module.bottombutton;
 
 import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
