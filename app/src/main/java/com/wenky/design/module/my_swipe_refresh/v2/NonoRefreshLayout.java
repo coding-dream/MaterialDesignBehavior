@@ -28,6 +28,12 @@ import com.wenky.design.util.SystemUtils;
 
 /**
  * Created by wl on 2019/4/26.
+ *
+ * 留意深坑：Behavior机制兼容问题，因为extends ViewGroup，ViewGroup也实现了onNestedScrollAccepted等这些方法
+ * 所以实现 NestedScrollingParent2 接口没有重写所有方法也运行正常（ViewGroup实现了NestedScrollingParent的所有接口），但是低版本Android系统ViewGroup是没有实现Nested机制的，所以导致
+ * 运行中产生 java.lang.VerifyError（虚拟机错误）接口所有方法是必须实现的（低版本ViewGroup导致没有实现全部接口）。
+ * 另外重写NestedScrollingParent（NestedScrollingParent2）后一定不要调用super.onNestedScrollAccepted，super.onStartNestedScroll等一系列方法
+ * 因为低版本ViewGroup没有这些方法，运行必崩。
  */
 public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParent2 {
 
@@ -116,6 +122,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         addView(mCircleView);
     }
 
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        return onStartNestedScroll(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
+    }
+
     /**
      * 只需要在 onStartNestedScroll加上 && type == ViewCompat.TYPE_TOUCH 即可
      * @param child
@@ -130,6 +141,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     }
 
     @Override
+    public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes) {
+        onNestedScrollAccepted(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
         // Reset the counter of how much leftover scroll needs to be consumed.
         mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
@@ -139,6 +155,10 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
         mNestedScrollingTarget = target;
     }
 
+    @Override
+    public void onStopNestedScroll(View target) {
+        onStopNestedScroll(target, ViewCompat.TYPE_TOUCH);
+    }
     /**
      * 每次手指按下：都会触发两次下面的事件，需要小心。
      * D/LogHelper: onStartNestedScroll
@@ -164,6 +184,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     }
 
     @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        onNestedPreScroll(target, dx, dy, consumed, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         // If we are in the middle of consuming, a scroll, then we want to move the spinner back up
         // before allowing the list to scroll
@@ -181,6 +206,11 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     }
 
     @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         // 下拉刷新
         final int dy = dyUnconsumed;
@@ -194,6 +224,31 @@ public class NonoRefreshLayout extends ViewGroup implements NestedScrollingParen
     @Override
     public int getNestedScrollAxes() {
         return mNestedScrollingParentHelper.getNestedScrollAxes();
+    }
+
+    /**
+     * 即使不用也必须重写，低版本兼容
+     * @param target
+     * @param velocityX
+     * @param velocityY
+     * @return
+     */
+    @Override
+    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+        return false;
+    }
+
+    /**
+     * 即使不用也必须重写，低版本兼容
+     * @param target
+     * @param velocityX
+     * @param velocityY
+     * @param consumed
+     * @return
+     */
+    @Override
+    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
+        return false;
     }
 
     /**
