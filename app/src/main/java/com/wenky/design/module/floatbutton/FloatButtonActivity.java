@@ -3,6 +3,7 @@ package com.wenky.design.module.floatbutton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;

@@ -40,6 +40,7 @@
         <activity android:name=".module.intercept.InterceptBehaviorActivity" />
         <activity android:name=".module.floatbutton.FloatButtonActivity" />
         <activity android:name=".module.bottombutton.BottomButtonActivity" />
+        <activity android:name=".module.snakebar.CustomSnackBarActivity" />
     </application>
 
 </manifest>

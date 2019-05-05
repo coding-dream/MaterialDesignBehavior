@@ -19,6 +19,7 @@ import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV1;
 import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV2;
 import com.wenky.design.module.my_swipe_refresh.v2.MySwipeRefreshActivityV3;
 import com.wenky.design.module.my_swipe_refresh.v2.MySwipeRefreshActivityV4;
+import com.wenky.design.module.snakebar.CustomSnackBarActivity;
 import com.wenky.design.module.svg.SvgRefreshActivityV1;
 import com.wenky.design.module.svg.SvgRefreshActivityV2;
 import com.wenky.design.module.tab_layout.TabLayoutActivity;
@@ -31,7 +32,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
-
+        startActivity(CustomSnackBarActivity.class);
+        finish();
     }
 
     @Override
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.MySwipeRefreshActivityV4,
             R.id.FloatButtonActivity,
             R.id.BottomButtonActivity,
+            R.id.CustomSnackBarActivity,
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -134,6 +137,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.BottomButtonActivity:
                 startActivity(BottomButtonActivity.class);
+                break;
+            case R.id.CustomSnackBarActivity:
+                startActivity(CustomSnackBarActivity.class);
                 break;
             default:
                 break;
