@@ -1,4 +1,4 @@
-package com.wenky.design.module.intercept;
+package com.wenky.design.module.intercept.v1;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,19 +20,23 @@ public class InterceptBehavior2 extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, View child, MotionEvent ev) {
+        boolean intercepted = false;
         final int action = ev.getActionMasked();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                LogHelper.d("Behavior2: ACTION_DOWN（onInterceptTouchEvent）");
+                LogHelper.d("Behavior2: ACTION_DOWN（onInterceptTouchEvent）" + ev.getRawY());
+                intercepted = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                LogHelper.d("Behavior2: ACTION_MOVE（onInterceptTouchEvent）");
+                LogHelper.d("Behavior2: ACTION_MOVE（onInterceptTouchEvent）" + ev.getRawY());
+                intercepted = false;
                 break;
             case MotionEvent.ACTION_UP:
                 LogHelper.d("Behavior2: ACTION_UP（onInterceptTouchEvent）");
+                intercepted = false;
                 break;
         }
-        return false;
+        return intercepted;
     }
 
     /**
@@ -60,9 +64,13 @@ public class InterceptBehavior2 extends CoordinatorLayout.Behavior<View> {
      *
      * 总的方法：CoordinatorLayout.onInterceptTouchEvent 和 CoordinatorLayout.onTouchEvent 与普通的事件分发一样。分发每一个child的Behavior的子方法。
      *
-     * 遍历所有的Behavior调用其onInterceptTouchEvent和onTouchEvent，两者任一都没有返回true之前，每个child的onInterceptTouchEvent和onTouchEvent都会调用询问是否拦截。
-     * 只有当 onInterceptTouchEvent和onTouchEvent 其中之一【第一次】返回true时（任何时机，也可以是ACTION_MOVE），此时mBehaviorTouchView不再为空.
+     * 遍历所有的Behavior调用其onInterceptTouchEvent和onTouchEvent，两者任一都没有返回true之前，每个child的onInterceptTouchEvent和onTouchEvent都会调用询问是否拦截(ACTION_DOWN中)。
+     * 只有当 onInterceptTouchEvent和onTouchEvent 其中之一【第一次ACTION_DOWN】返回true时（true拦截，false 则后续事件都不再经过这两个方法），此时mBehaviorTouchView不再为空.
      * ============【条件判断】============ 部分就不再调用(cancelSuper = performIntercept(ev, TYPE_ON_TOUCH))判断是否拦截了，之后的事件会一直走mBehaviorTouchView的Behavior。
+     *
+     * 注意：只有ACTION_DOWN时候判断当前Behavior是否拦截事件（onInterceptTouchEvent|onTouchEvent），否则后续事件均不再经过这两个方法。
+     * 所以如果想要处理一系列事件，（onInterceptTouchEvent|onTouchEvent）中ACTION_DOWN必须返回true，ACTION_MOVE事件才会经过这两个方法，然后我们可以选择是否处理ACTION_MOVE即可
+     * 不处理的话，但是我们发现：CoordinatorLayout.onTouchEvent.ACTION_MOVE 并没有进行任何处理（没有传递给下层的ScrollView），Behavior中return false 无任何意义（事件nothing to do）
      *
      * @param parent
      * @param child
@@ -75,13 +83,14 @@ public class InterceptBehavior2 extends CoordinatorLayout.Behavior<View> {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 LogHelper.d("Behavior2: ACTION_DOWN（onTouchEvent）");
-                break;
+                return false;
             case MotionEvent.ACTION_MOVE:
                 LogHelper.d("Behavior2: ACTION_MOVE（onTouchEvent）");
-                break;
+                return false;
             case MotionEvent.ACTION_UP:
                 LogHelper.d("Behavior2: ACTION_UP（onTouchEvent）");
-                break;
+                // false对于CoordinatorLayout来说毫无意义，Behavior已经拦截ACTION_DOWN，后续CoordinatorLayout没有处理false事件
+                return false;
         }
         return false;
     }

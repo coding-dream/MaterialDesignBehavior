@@ -37,10 +37,11 @@
         <activity android:name=".module.my_swipe_refresh.v1.MySwipeRefreshActivityV2" />
         <activity android:name=".module.my_swipe_refresh.v2.MySwipeRefreshActivityV3" />
         <activity android:name=".module.my_swipe_refresh.v2.MySwipeRefreshActivityV4" />
-        <activity android:name=".module.intercept.InterceptBehaviorActivity" />
+        <activity android:name=".module.intercept.v1.InterceptBehaviorActivityV1" />
         <activity android:name=".module.floatbutton.FloatButtonActivity" />
         <activity android:name=".module.bottombutton.BottomButtonActivity" />
         <activity android:name=".module.snakebar.CustomSnackBarActivity" />
+        <activity android:name=".module.intercept.v2.InterceptBehaviorActivityV2" />
     </application>
 
 </manifest>

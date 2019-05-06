@@ -16,7 +16,8 @@ import com.wenky.design.module.drawer.DrawerBehaviorActivityV2;
 import com.wenky.design.module.fix_appbar_bug.FixBugAppBarLayoutActivity;
 import com.wenky.design.module.fling.FlingBehaviorActivity;
 import com.wenky.design.module.floatbutton.FloatButtonActivity;
-import com.wenky.design.module.intercept.InterceptBehaviorActivity;
+import com.wenky.design.module.intercept.v1.InterceptBehaviorActivityV1;
+import com.wenky.design.module.intercept.v2.InterceptBehaviorActivityV2;
 import com.wenky.design.module.j_shu.JShuAppBarLayoutActivity;
 import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV1;
 import com.wenky.design.module.my_swipe_refresh.v1.MySwipeRefreshActivityV2;
@@ -34,8 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
-        startActivity(InterceptBehaviorActivity.class);
-        finish();
+
     }
 
     @Override
@@ -68,6 +68,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             R.id.FloatButtonActivity,
             R.id.BottomButtonActivity,
             R.id.CustomSnackBarActivity,
+            R.id.InterceptBehaviorActivityV1,
+            R.id.InterceptBehaviorActivityV2,
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -142,6 +144,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.CustomSnackBarActivity:
                 startActivity(CustomSnackBarActivity.class);
+                break;
+            case R.id.InterceptBehaviorActivityV1:
+                startActivity(InterceptBehaviorActivityV1.class);
+                break;
+            case R.id.InterceptBehaviorActivityV2:
+                startActivity(InterceptBehaviorActivityV2.class);
                 break;
             default:
                 break;
