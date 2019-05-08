@@ -1,4 +1,5 @@
-<LinearLayout android:orientation="vertical"
+<RelativeLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,8 +49,16 @@
     </com.wenky.design.module.my_swipe_refresh.v2.NonoRefreshLayout>
 
     <Button
+        android:layout_alignParentBottom="true"
         android:id="@+id/button"
-        android:text="隐藏动画"
+        android:text="执行动画"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-</LinearLayout>
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_animate"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

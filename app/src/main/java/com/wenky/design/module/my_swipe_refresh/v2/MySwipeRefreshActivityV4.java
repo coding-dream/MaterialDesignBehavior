@@ -1,10 +1,12 @@
 package com.wenky.design.module.my_swipe_refresh.v2;
 
+import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.wenky.design.R;
 import com.wenky.design.base.BaseActivity;
@@ -26,6 +28,9 @@ public class MySwipeRefreshActivityV4 extends BaseActivity {
 
     private Handler mHandler = new Handler();
 
+    @BindView(R.id.iv_animate)
+    ImageView ivAnimate;
+
     @Override
     public void initView() {
         // fixConflict1();
@@ -43,6 +48,16 @@ public class MySwipeRefreshActivityV4 extends BaseActivity {
             public void onRefresh() {
                 ToastsKt.toast(MySwipeRefreshActivityV4.this, "正在刷新数据~");
                 requestData();
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivAnimate, "translationY", 0, 500);
+                objectAnimator.setDuration(1500);
+                objectAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+                objectAnimator.start();
             }
         });
     }
