@@ -42,6 +42,7 @@
         <activity android:name=".module.bottombutton.BottomButtonActivity" />
         <activity android:name=".module.snakebar.CustomSnackBarActivity" />
         <activity android:name=".module.intercept.v2.InterceptBehaviorActivityV2" />
+        <activity android:name=".module.my_swipe_refresh.v3.NonoRefreshActivity" />
     </application>
 
 </manifest>
