@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.wenky.design.R;
 import com.wenky.design.util.LogHelper;
 
+import java.util.logging.Logger;
+
 /**
  * Created by wl on 2019/4/30.
  */
@@ -101,9 +103,13 @@ public class SnackBarChildView extends FrameLayout {
         }
     }
 
+    /**
+     * 当Activity退出的时候，此方法回调
+     */
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         CustomSnakeBar.enableSnakeBar = true;
+        LogHelper.d("ooo SnackBarChildView.onDetachedFromWindow");
     }
 }

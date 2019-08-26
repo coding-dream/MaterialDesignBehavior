@@ -22,6 +22,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import com.wenky.design.util.LogHelper;
 import com.wenky.design.util.ViewHelper;
 
 /**
@@ -44,6 +45,8 @@ import com.wenky.design.util.ViewHelper;
  * 且上述mView创建两个自定义布局 SnackBarLayout & SnackBarContentLayout，事件处理写在两个布局中，不如直接合并成一个。
  *
  * 最终是把mView添加到mTargetParent中，然后动画显示，这里做法不如直接mView的创建放入一个单独的布局SnackBarChildView中，不需这么麻烦
+ *
+ * 注意，作为Dialog只移除自己，不要清除CoordinatorLayout中所有的view，因为可能其他Dialog也想弹出
  */
 public class CustomSnakeBar {
 
@@ -109,6 +112,8 @@ public class CustomSnakeBar {
         if (CustomSnakeBar.enableSnakeBar) {
             addSnakeView();
             sHandler.sendMessageDelayed(sHandler.obtainMessage(MSG_SHOW, CustomSnakeBar.this), 200);
+        } else {
+            hide();
         }
     }
 
@@ -232,5 +237,6 @@ public class CustomSnakeBar {
             ((ViewGroup)parent).removeView(this.mView);
         }
         CustomSnakeBar.enableSnakeBar = true;
+        LogHelper.d("ooo CustomSnakeBar.onViewHidden");
     }
 }
